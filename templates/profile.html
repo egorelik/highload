@@ -1,0 +1,34 @@
+<!-- templates/profile.html -->
+{% extends "base.html" %}
+{% block head %}
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+{% endblock%}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+    	 <div class="well profile">
+            <div class="col-sm-12">
+                <div class="col-xs-12 col-sm-8">
+                    <h2>{{ user[3] }} {{ user[4] }}</h2>
+                    <p><strong>Age: </strong> {{ user[5] }} </p>
+                    <p><strong>City </strong> {{ user[6] }} </p>
+                    <p><strong>Country </strong> {{ user[7] }} </p>
+                    <p><strong>Interests </strong>
+                        <span class="tags">Running</span>
+                        <span class="tags">Reading</span>
+                        <span class="tags">Swimming</span>
+                        <span class="tags">Dancing</span>
+                    </p>
+                </div>
+            </div>
+            </div>
+		</div>
+	</div>
+</div>
+{%endblock%}
