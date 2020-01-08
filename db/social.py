@@ -102,7 +102,7 @@ class SocialDB:
 
     def add_user_interest(self,ids):
         self.connect()
-        sql_stmt = "INSERT INTO user_interest (user_id,interest_id) VALUES (%i,%i)"
+        sql_stmt = "INSERT INTO user_interest (user_id,interest_id) VALUES (%s,%s)"
         cursor = self.connection.cursor(prepared=True)
         cursor.execute(sql_stmt, ids)
         self.connection.commit()
@@ -111,8 +111,9 @@ class SocialDB:
 
     def select_user_interest(self,user_id):
         self.connect()
-        sql_stmt = """"SELECT i.interest_id,i.interest FROM interest i,user_interest ui, user u
-                       WHERE ui.user_id = %i and u.id = ui.user_id and i.id = ui.interest_id"""
+        print(user_id)
+        sql_stmt = """SELECT i.id,i.interest FROM interest i,user_interest ui, user u
+                       WHERE ui.user_id = %s and u.id = ui.user_id and i.id = ui.interest_id"""
         cursor = self.connection.cursor()
         cursor.execute(sql_stmt, user_id)
         records = cursor.fetchall()
@@ -120,7 +121,7 @@ class SocialDB:
         self.connection.close()
         return records
 
-    def interests(self):
+    def select_interests(self):
         self.connect()
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM interest;")

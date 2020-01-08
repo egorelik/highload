@@ -15,30 +15,35 @@ def registration():
     last_name = request.form.get('last_name')
     city = request.form.get('city')
     country = request.form.get('country')
+    interests = request.form.getlist('interests')
     age = 0 if isBlank(request.form.get('age')) else int(request.form.get('age'))
 
-    print("%s | %s | %s | %s | %s | %s | %d" % (username, password, first_name, last_name, city, country, age))
+    print("%s | %s | %s | %s | %s | %s | %d | %s" % (username, password, first_name, last_name, city, country, age, interests))
 
     if not isBlank(username):
         user = dbase.select_user(username)
         if user:
            return redirect(url_for('auth.login'))
 
+    user_interests = dbase.select_interests();
     if isBlank(username) \
         or isBlank(password) \
         or isBlank(first_name) \
         or isBlank(last_name) \
         or isBlank(city) \
         or isBlank(country):
-        return render_template("registration.html")
+        return render_template("registration.html", interests_list=user_interests)
 
     password = generate_password_hash(password, method='sha256')
-    print(password)
     user = (username,password,first_name,last_name,age,city,country)
     dbase.add_new_user(user)
+    user_id = dbase.select_user(username)[0][0]
+    for interest in interests:
+        print(user_id)
+        print(interest)
+        dbase.add_user_interest((user_id,interest))
+
     return redirect(url_for('auth.login'))
-
-
 
 @auth.route("/login", methods=['POST','GET'])
 def login():

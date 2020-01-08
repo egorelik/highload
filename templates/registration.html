@@ -68,10 +68,9 @@
 							<div class="form-group">
 								<h4>Interests</h4>
 								<select name="interests" multiple>
-									<option value ="swimming">Swimming</option>
-									<option value ="running">Running</option>
-									<option value ="movies">Movies</option>
-									<option value ="reading">Reading</option>
+									{% for interest in interests_list%}
+									<option value ="{{ interest[0] }}">{{ interest[1]}}</option>
+									{% endfor %}
 								</select>
 							</div>
 
